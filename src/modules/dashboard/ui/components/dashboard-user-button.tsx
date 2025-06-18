@@ -78,7 +78,7 @@ export const DashboardUserButton = () => {
                                 <CreditCardIcon className="size-4 text-black" />
                                 Billing
                             </Button>
-                            <Button onClick={() => { onLogout }} >
+                            <Button onClick={onLogout}>
                                 <LogOutIcon className="size-4 text-white" />
                                 Logout
                             </Button>
