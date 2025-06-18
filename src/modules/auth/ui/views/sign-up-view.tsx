@@ -11,8 +11,9 @@ import { Alert, AlertTitle } from "@/components/ui/alert"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { FaGithub, FaGoogle } from "react-icons/fa"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -25,9 +26,9 @@ const formSchema = z.object({
 });
 
 export const SignUpView = () => {
-    const router = useRouter();
     const [error, setError] = useState<string | null>(null)
-    const [ pending, setPending ] = useState(false);
+    const [pending, setPending] = useState(false);
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -45,6 +46,7 @@ export const SignUpView = () => {
             name: data.name,
             email: data.email,
             password: data.password,
+            callbackURL: "/"
         },
             {
                 onSuccess: () => {
@@ -52,12 +54,32 @@ export const SignUpView = () => {
                     router.push("/");
                 },
 
-                onError: ({error}) => {
+                onError: ({ error }) => {
                     setPending(false);
                     setError(error.message);
                 }
             });
     }
+
+    const onSocial = (provider: "github" | "google") => {
+        setError(null);
+        setPending(true);
+        authClient.signIn.social({
+            provider: provider,
+            callbackURL: "/"
+        },
+            {
+                onSuccess: () => {
+                    setPending(false);
+                },
+
+                onError: ({ error }) => {
+                    setPending(false);
+                    setError(error.message);
+                }
+            });
+    }
+
     return (
         <div className="flex flex-col gap-6">
             <Card className="overflow-hidden p-0">
@@ -86,7 +108,7 @@ export const SignUpView = () => {
                                                 <FormMessage />
                                             </FormItem>
                                         )}
-                                    />                                    
+                                    />
                                     <FormField
                                         control={form.control}
                                         name="email"
@@ -125,7 +147,7 @@ export const SignUpView = () => {
                                                 <FormMessage />
                                             </FormItem>
                                         )}
-                                    />                                    
+                                    />
                                 </div>
                                 {!!error && (
                                     <Alert className="bg-destructive/10 border-none ">
@@ -134,10 +156,9 @@ export const SignUpView = () => {
                                     </Alert>
                                 )}
                                 <Button disabled={pending} className="w-full" type="submit">
-                                    Sign In
+                                    Sign Up
                                 </Button>
-                                <div className="after:border-border relative text-center text-sm after:absolute 
-                after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                                <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                                     <span className="bg-card text-muted-foreground relative z-10 px-2">
                                         Or continue with
                                     </span>
@@ -146,18 +167,20 @@ export const SignUpView = () => {
                                     <Button variant={"outline"}
                                         type="button"
                                         className="w-full"
-                                        disabled={pending}>
-                                        Google
+                                        disabled={pending}
+                                        onClick={() => { onSocial("google") }}>
+                                        <FaGoogle />
                                     </Button>
                                     <Button variant={"outline"}
                                         type="button"
                                         className="w-full"
-                                        disabled={pending}>
-                                        Github
+                                        disabled={pending}
+                                        onClick={() => { onSocial("github") }}                                        >
+                                        <FaGithub />
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
-                                    Already have an account?{" "} <Link href={"/sign-up"} className="underline underline-offset-4">
+                                    Already have an account?{" "} <Link href={"/sign-in"} className="underline underline-offset-4">
                                         Sign in
                                     </Link>
                                 </div>
