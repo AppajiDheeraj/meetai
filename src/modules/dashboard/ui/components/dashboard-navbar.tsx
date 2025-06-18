@@ -17,6 +17,7 @@ export const DashboardNav = () => {
             }
         };
         document.addEventListener("keydown", down);
+        return () => document.removeEventListener("keydown", down);
     }, []);
     return (
         <>
