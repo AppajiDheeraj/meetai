@@ -6,7 +6,7 @@ import { NewAgentDialog } from "./new-agent-dialog";
 import { useState } from "react";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { AgentsSearchFilter } from "./agents-search-filter";
-import { DEFAULT_PAGE_SIZE } from "@/constants";
+import { DEFAULT_PAGE } from "@/constants";
 
 export const ListHeader = () => {
     const [ filters, setFilters ] = useAgentsFilters();
@@ -17,7 +17,7 @@ export const ListHeader = () => {
     const onClearFilters = () => {
         setFilters({
             search: '',
-            page: DEFAULT_PAGE_SIZE
+            page: DEFAULT_PAGE
         })
     }
 
