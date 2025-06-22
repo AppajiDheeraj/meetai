@@ -18,7 +18,7 @@ interface Props {
     isSearchable?: boolean;
 }
 
-export const CommnandSelect = ({
+export const CommandSelect = ({
     options,
     onSelect,
     onSearch,
