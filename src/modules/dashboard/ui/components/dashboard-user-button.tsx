@@ -24,7 +24,6 @@ export const DashboardUserButton = () => {
     const { data, isPending } = authClient.useSession();
     const isMobile = useIsMobile();
     const router = useRouter();
-    console.log("DashboardUserButton data", data);
 
     if (isPending || !data?.user) {
         return null;
