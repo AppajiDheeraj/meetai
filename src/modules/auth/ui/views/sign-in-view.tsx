@@ -15,7 +15,6 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { FaGithub, FaGoogle } from "react-icons/fa"
 
-
 const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(1, { message: "Password is required" }),
@@ -26,6 +25,7 @@ export const SignInView = () => {
     const [error, setError] = useState<string | null>(null)
     const [pending, setPending] = useState(false);
     const router = useRouter();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -116,6 +116,11 @@ export const SignInView = () => {
                                             </FormItem>
                                         )}
                                     />
+                                    <div className="flex justify-end text-xs">
+                                        <Link href="/forgot-password" className="text-muted-foreground hover:text-primary underline underline-offset-4">
+                                            Forgot password?
+                                        </Link>
+                                    </div>
                                 </div>
                                 {!!error && (
                                     <Alert className="bg-destructive/10 border-none ">

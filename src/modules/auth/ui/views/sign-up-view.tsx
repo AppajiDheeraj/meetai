@@ -49,8 +49,13 @@ export const SignUpView = () => {
             callbackURL: "/"
         },
             {
-                onSuccess: () => {
+                onSuccess: async () => {
                     setPending(false);
+                    await fetch("/api/send-welcome", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: data.email, name: data.name }),
+                    });
                     router.push("/");
                 },
 
