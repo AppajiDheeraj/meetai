@@ -12,7 +12,7 @@ interface Props {
 
 export const CallUI = ({ meetingName }: Props) => {
     const call = useCall();
-    const [ show,setShow ] = useState<"lobby" | "call" | "ended">("lobby");
+    const [ show, setShow ] = useState<"lobby" | "call" | "ended">("lobby");
 
     const handleJoin = async () => {
         if (!call) return;

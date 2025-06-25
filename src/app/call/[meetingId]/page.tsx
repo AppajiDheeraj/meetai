@@ -15,6 +15,7 @@ interface Props {
 };
 
 const Page = async ({ params }: Props) => {
+
     const session = await auth.api.getSession({
         headers: await headers()
     })
@@ -35,7 +36,7 @@ const Page = async ({ params }: Props) => {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <Suspense fallback={  <div>Loading...</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
                 <ErrorBoundary fallback={<div>Something went wrong</div>}>
                     <CallView
                         meetingId={meetingId}
