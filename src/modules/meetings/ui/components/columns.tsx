@@ -6,18 +6,10 @@ import { GeneratedAvatar } from "@/components/generated-avtar"
 import { CornerDownRightIcon, VideoIcon, CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, ClockFadingIcon, LoaderIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
-import humanizeDuration from "humanize-duration"
+import { formatDuration } from "@/lib/utils"
 import { cn } from "@/lib/utils"
 
 type Meeting = MeetingGetMany[number];
-
-function formatDuration(seconds: number) {
-    return humanizeDuration(seconds * 1000, {
-        largest: 1,
-        round: true,
-        units: ["h", "m", "s"],
-    });
-};
 
 const statusIconMap = {
     upcoming: ClockArrowUpIcon,
