@@ -16,6 +16,7 @@ import {
   MAX_PAGE_SIZE,
   MIN_PAGE_SIZE,
 } from "@/constants";
+import { meetings } from "@/db/schema";
 import { sendAgentCreatedEmail } from "@/lib/email/index";
 import { sendAgentDeletedEmail } from "@/lib/email/index";
 
@@ -82,7 +83,7 @@ export const agentsRouter = createTRPCRouter({
       const [existingAgent] = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`5`,
+          meetingCount: db.$count(meetings, eq(meetings.agentId, agents.id)),
         })
         .from(agents)
         .where(
@@ -114,7 +115,7 @@ export const agentsRouter = createTRPCRouter({
       const data = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`5`,
+          meetingCount: db.$count(meetings, eq(meetings.agentId, agents.id)),
         })
         .from(agents)
         .where(
