@@ -62,6 +62,10 @@ export const AgentForm = ({
                     trpc.agents.getMany.queryOptions({}),
                 );
 
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                )
+
                 if (initialValues?.id) {
                     await queryClient.invalidateQueries(
                         trpc.agents.getOne.queryOptions({
@@ -75,6 +79,9 @@ export const AgentForm = ({
             onError: (error) => {
                 toast.error(
                     `Failed to update agent: ${error.message}`,)
+                if (error?.data?.code === "FORBIDDEN") {
+                    router.push("/upgrade");
+                }
             },
         }),
     );

@@ -56,12 +56,19 @@ export const MeetingForm = ({
                 await queryClient.invalidateQueries(
                     trpc.meetings.getMany.queryOptions({}),
                 );
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                );
                 toast.success("Meeting created successfully");
                 onSuccess?.(data.id);
             },
             onError: (error) => {
                 toast.error(
                     `Failed to create meeting: ${error.message}`,)
+
+                if (error?.data?.code === "FORBIDDEN") {
+                    router.push("/upgrade");
+                }
             },
         }),
     );
