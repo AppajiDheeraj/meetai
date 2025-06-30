@@ -36,7 +36,7 @@ export const UpgradeView = () => {
                     })
                     if (isCurrentProduct) {
                         buttonText = "Manage";
-                        onClick = () => authClient.customer.portal();;
+                        onClick = () => authClient.customer.portal();
                     } else if (isPremium) {
                         buttonText = "Change Plan";
                         onClick = () => authClient.customer.portal();
