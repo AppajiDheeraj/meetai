@@ -16,6 +16,7 @@ import {
   createTRPCRouter,
   baseProcedure,
   protectedProcedure,
+  premiumProcedure,
 } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
 import {
@@ -167,7 +168,7 @@ export const meetingsRouter = createTRPCRouter({
     return token;
   }),
 
-  create: protectedProcedure
+  create: premiumProcedure("meetings")
     .input(meetingsInsertSchema)
     .mutation(async ({ ctx, input }) => {
       const [createdMeeting] = await db
