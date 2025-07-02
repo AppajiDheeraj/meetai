@@ -53,7 +53,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const eventType = (payload as any)?.type;
+  type StreamEvent =
+    | CallSessionStartedEvent
+    | CallSessionParticipantLeftEvent
+    | CallEndedEvent
+    | CallTranscriptionReadyEvent
+    | CallRecordingReadyEvent
+    | MessageNewEvent;
+
+  const eventType = (payload as StreamEvent)?.type;
 
   if (eventType === "call.session_started") {
     const event = payload as CallSessionStartedEvent;
@@ -182,11 +190,7 @@ export async function POST(request: NextRequest) {
     const [existingMeeting] = await db
       .select()
       .from(meetings)
-      .where(
-        and(
-          eq(meetings.id, channelId),
-          eq(meetings.status, "completed")
-      ));
+      .where(and(eq(meetings.id, channelId), eq(meetings.status, "completed")));
 
     if (!existingMeeting) {
       return NextResponse.json(
@@ -204,7 +208,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Agent not found" }, { status: 404 });
     }
 
-    if(userId !== existingAgent.id) {
+    if (userId !== existingAgent.id) {
       const instructions = `
       You are an AI assistant helping the user revisit a recently completed meeting.
       Below is a summary of the meeting, generated from the transcript:
@@ -233,7 +237,7 @@ export async function POST(request: NextRequest) {
         .filter((msg) => msg.text && msg.text.trim() !== "")
         .map<ChatCompletionMessageParam>((msg) => ({
           role: msg.user?.id === existingAgent.id ? "assistant" : "user",
-          content: msg.text || ""
+          content: msg.text || "",
         }));
 
       const GPTResponse = await openaiClient.chat.completions.create({
@@ -241,14 +245,14 @@ export async function POST(request: NextRequest) {
         messages: [
           {
             role: "system",
-            content: instructions
+            content: instructions,
           },
           ...previousMessages,
           {
             role: "user",
-            content: text
-          }
-        ]
+            content: text,
+          },
+        ],
       });
 
       const GPTResponseText = GPTResponse.choices[0].message?.content || "";
@@ -262,7 +266,7 @@ export async function POST(request: NextRequest) {
 
       const avatarUrl = generateAvatarUri({
         seed: existingAgent.name,
-        variant: "botttsNeutral"
+        variant: "botttsNeutral",
       });
 
       streamChat.upsertUser({
@@ -279,7 +283,6 @@ export async function POST(request: NextRequest) {
           new Date(msg.created_at!).getTime() >
             new Date(event.message?.created_at!).getTime()
       );
-
 
       if (alreadyResponded) {
         return NextResponse.json({ status: "already responded" });

@@ -14,7 +14,6 @@ import { agents, meetings, user } from "@/db/schema";
 import JSONL from "jsonl-parse-stringify";
 import {
   createTRPCRouter,
-  baseProcedure,
   protectedProcedure,
   premiumProcedure,
 } from "@/trpc/init";

@@ -4,9 +4,12 @@ import { cache } from "react";
 import { headers } from "next/headers";
 import { polarClient } from "@/lib/polar";
 import { db } from "@/db";
-import { agents, meetings } from "@/db/schema";
+import { agents, meetings, user } from "@/db/schema";
 import { count, eq } from "drizzle-orm";
-import { MAX_FREE_AGENTS, MAX_FREE_MEETINGS } from "@/modules/premium/constants";
+import {
+  MAX_FREE_AGENTS,
+  MAX_FREE_MEETINGS,
+} from "@/modules/premium/constants";
 export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
@@ -59,9 +62,27 @@ export const premiumProcedure = (entity: "meetings" | "agents") =>
       .from(agents)
       .where(eq(agents.userId, ctx.auth.user.id));
 
+    const extraLimit = async (userId: string): Promise<number> => {
+      try {
+        const User = await db
+          .select({ referralCount: user.referralCount })
+          .from(user)
+          .where(eq(user.id, userId))
+          .limit(1);
+
+        const referralCount = User[0]?.referralCount ?? 0;
+        return Math.floor(referralCount / 5);
+      } catch (error) {
+        console.error("Error fetching user referral count:", error);
+        return 0;
+      }
+    };
+    const bonusLimit = await extraLimit(ctx.auth.user.id);
     const isPremium = customer.activeSubscriptions.length > 0;
-    const isFreeAgentLimitReached = userAgents.count >= MAX_FREE_AGENTS;
-    const isFreeMeetingLimitReached = userMeetings.count >= MAX_FREE_MEETINGS;
+    const isFreeAgentLimitReached =
+      userAgents.count >= MAX_FREE_AGENTS + bonusLimit;
+    const isFreeMeetingLimitReached =
+      userMeetings.count >= MAX_FREE_MEETINGS + bonusLimit;
 
     const shouldThrowMeetingError =
       entity === "meetings" && !isPremium && isFreeMeetingLimitReached;
@@ -86,7 +107,6 @@ export const premiumProcedure = (entity: "meetings" | "agents") =>
       ctx: {
         ...ctx,
         customer,
-      }
-    })
-    
+      },
+    });
   });

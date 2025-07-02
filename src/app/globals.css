@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "react-phone-input-2/lib/style.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,6 +43,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
+
 
 :root {
   --radius: 0.625rem;
@@ -136,3 +138,27 @@
    cursor: pointer;
   }
 }
+
+  .flip-card {
+    perspective: 1000px;
+  }
+
+  .flip-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-front,
+  .flip-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .flip-back {
+    transform: rotateY(180deg);
+  }

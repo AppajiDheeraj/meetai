@@ -1,7 +1,6 @@
 import { LogInIcon } from "lucide-react";
 import {
   DefaultVideoPlaceholder,
-  name,
   StreamVideoParticipant,
   ToggleAudioPreviewButton,
   ToggleVideoPreviewButton,

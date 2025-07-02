@@ -1,4 +1,3 @@
-import { meetingStatus } from "@/db/schema";
 import { MeetingStatus } from "../../types";
 import { CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, LoaderIcon, VideoIcon } from "lucide-react";
 import { useMeetingsFilters } from "../../hooks/use-meetings-filters";

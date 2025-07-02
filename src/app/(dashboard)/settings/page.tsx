@@ -1,8 +1,9 @@
 import { SettingsView } from "@/modules/settings/ui/views/settings-view";
 
-const Page = () => {
+const Page = async () => {
   return (
-    <SettingsView />
+    <SettingsView
+    />
   )
 }
 
