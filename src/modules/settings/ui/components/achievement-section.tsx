@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Props {
-    userName: string;
     meetingCount: number;
     agentCount: number;
     totalDuration: number;
@@ -12,11 +11,9 @@ interface Props {
 }
 
 export const AchievementSection = ({
-    userName,
     meetingCount,
     agentCount,
     totalDuration,
-    referralCount,
 }: Props) => {
     const hasAchievements =
         agentCount > 0 || meetingCount === 3 || agentCount === 3 || totalDuration > 0;

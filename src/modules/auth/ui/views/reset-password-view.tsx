@@ -84,9 +84,13 @@ export const ResetPasswordView = () => {
             setTimeout(() => {
                 router.push("/settings");
             }, 500);
-            
-        } catch (err: any) {
-            setError(err.message);
+
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Something went wrong");
+            }
         } finally {
             setPending(false);
         }

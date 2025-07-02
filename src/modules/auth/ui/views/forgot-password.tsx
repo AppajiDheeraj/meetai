@@ -12,17 +12,15 @@ import { useForm } from "react-hook-form"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { FaGithub, FaGoogle } from "react-icons/fa"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     email: z.string().email(),
 })
 
 export const ForgotPasswordView = () => {
-    const [error, setError] = useState<string | null>(null)
-    const [pending, setPending] = useState(false);
-    const router = useRouter();
+    const [error] = useState<string | null>(null)
+    const [pending] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -32,10 +30,13 @@ export const ForgotPasswordView = () => {
     });
 
     const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-        const { data, error } = await authClient.signIn.magicLink({
+        const response = await authClient.signIn.magicLink({
             email: formData.email,
             callbackURL: "/meetings", //redirect after successful login (optional)
         });
+        if (response.error) {
+            toast.error("Failed to send magic link: " + response.error.message);
+        }
         console.log(formData.email);
     }
 
@@ -52,7 +53,7 @@ export const ForgotPasswordView = () => {
                                         Login via Magic Link
                                     </h1>
                                     <p className="text-sm text-muted-foreground mt-2">
-                                         We'll send a login link to your email. No password needed.
+                                        We&apos;ll send a login link to your email. No password needed.
                                     </p>
                                 </div>
                                 <div className="grid gap-3">

@@ -34,21 +34,20 @@ export async function setPasswordAction(newPassword: string): Promise<{ success:
     revalidatePath("/api/trpc/settings.getProfile");
 
     return { success: true };
-  } catch (err: any) {
-    console.error("❌ Failed to set password:", err);
-    
-    // Handle specific error cases
-    if (err.status === 'UNAUTHORIZED' || err.statusCode === 401) {
-      return { 
-        success: false, 
-        message: "Session expired. Please sign out and sign back in to set your password." 
-      };
-    }
-    
-    return { 
-      success: false, 
-      message: err.message || "Failed to set password. Please try again." 
+} catch (err: unknown) {
+  const error = err as { status?: number; statusCode?: number; message?: string };
+
+  if (error.status === 401 || error.statusCode === 401) {
+    return {
+      success: false,
+      message: "Session expired. Please sign out and sign back in to set your password.",
     };
   }
+
+  return {
+    success: false,
+    message: error.message || "Failed to set password. Please try again.",
+  };
+}
 }
 

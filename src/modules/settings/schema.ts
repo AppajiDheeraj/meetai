@@ -1,4 +1,3 @@
-import { twoFactor } from "better-auth/plugins";
 import { z } from "zod";
 
 export const settingsUpdateSchema = z.object({

@@ -4,9 +4,7 @@ import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
-    const cookieStore = cookies();
     const token = (await cookies()).get("auth_token")?.value;
-
 
     if (!token) {
       return new Response("Missing session token", { status: 401 });

@@ -53,7 +53,7 @@ export const SettingsSection = () => {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [showQRModal, setShowQRModal] = useState(false);
     const [totpURI, setTotpURI] = useState("");
-    const [totpCode, setTotpCode] = useState("");
+    const [_totpCode, setTotpCode] = useState("");
     const [isVerifying, setIsVerifying] = useState(false);
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);
     const [passwordFor2FA, setPasswordFor2FA] = useState("");
@@ -206,8 +206,8 @@ export const SettingsSection = () => {
             setTotpURI(data.totpURI);
             setShowPasswordDialog(false);
             setShowQRModal(true);
-        } catch (err: any) {
-            toast.error(`Failed to enable 2FA: ${err.message}`);
+        } catch {
+            toast.error(`Failed to enable 2FA`);
             setTwoFactorEnabled(false);
             setShowPasswordDialog(false);
         }
@@ -227,7 +227,7 @@ export const SettingsSection = () => {
             setShowQRModal(false);
             setDigits(Array(6).fill(""));
             await refetch(); // Refresh user profile
-        } catch (error: any) {
+        } catch {
             toast.error("Invalid code. Please try again.");
             setDigits(Array(6).fill("")); // Clear the digits
         } finally {
@@ -247,7 +247,7 @@ export const SettingsSection = () => {
             toast.success("2FA disabled successfully.");
             setTwoFactorEnabled(false);
             await refetch(); // Refresh user profile
-        } catch (error: any) {
+        } catch {
             toast.error("Failed to disable 2FA. Please check your password.");
             setTwoFactorEnabled(userProfile?.twoFactorEnabled ?? false);
         }

@@ -10,8 +10,8 @@ import { SettingsSection } from "../components/settings-section";
 
 export const SettingsView = () => {
     const trpc = useTRPC();
-    const { data, isPending } = authClient.useSession();
-    const { data: stats, isPending: isStatsPending } = useQuery(
+    const { data } = authClient.useSession();
+    const { data: stats} = useQuery(
         trpc.settings.getStats.queryOptions(),
     );
 
@@ -37,7 +37,6 @@ export const SettingsView = () => {
                         />
                         <div>
                             <AchievementSection
-                                userName={data.user.name}
                                 meetingCount={stats?.meetingCount ?? 0}
                                 agentCount={stats?.agentCount ?? 0}
                                 totalDuration={Number(stats?.totalDuration ?? 0)}

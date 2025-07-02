@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -43,7 +42,7 @@ export default function TwoFactorPage() {
             await authClient.twoFactor.verifyTotp({ code });
             toast.success("2FA verified successfully");
             router.push("/"); // Redirect to dashboard or home
-        } catch (err: any) {
+        } catch {
             toast.error("Invalid code. Please try again.");
         } finally {
             setIsVerifying(false);

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { MAX_FREE_AGENTS, MAX_FREE_MEETINGS } from "@/modules/premium/constants";
 import { useTRPC } from "@/trpc/client"
 import { useQuery } from "@tanstack/react-query";
 import { RocketIcon } from "lucide-react";
@@ -17,7 +16,7 @@ export const DashboardTrial = () => {
         return null;
     }
 
-    const { agentCount, meetingCount, maxFreeAgents, maxFreeMeetings, bonusLimit } = data;
+    const { agentCount, meetingCount, maxFreeAgents, maxFreeMeetings } = data;
 
     return (
         <div className="border border-border/10 rounded-lg bg-white/5 flex flex-col gap-y-2">

@@ -7,8 +7,6 @@ import {
   polar,
   checkout,
   portal,
-  usage,
-  webhooks,
 } from "@polar-sh/better-auth";
 import { polarClient } from "./polar";
 import { sendMagicLinkEmail } from "@/lib/email";

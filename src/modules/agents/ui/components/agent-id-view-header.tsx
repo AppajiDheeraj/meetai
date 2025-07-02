@@ -3,9 +3,7 @@ import {
     BreadcrumbList,
     BreadcrumbItem,
     BreadcrumbLink,
-    BreadcrumbPage,
     BreadcrumbSeparator,
-    BreadcrumbEllipsis
 } from '@/components/ui/breadcrumb'
 import {  DropdownMenu,
   DropdownMenuTrigger,
