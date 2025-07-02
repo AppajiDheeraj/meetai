@@ -1,10 +1,13 @@
 import { nanoid } from "nanoid";
-import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, pgEnum, integer } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
+  phone: text("phone"), // ✅ Phone Number
+  location: text("location"), // ✅ Location (e.g. "Bangalore, India")
+  referralCount: integer("referral_count").default(0),
   emailVerified: boolean("email_verified")
     .$defaultFn(() => false)
     .notNull(),
@@ -15,6 +18,7 @@ export const user = pgTable("user", {
   updatedAt: timestamp("updated_at")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
+  twoFactorEnabled: boolean('two_factor_enabled')
 });
 
 export const session = pgTable("session", {
@@ -81,7 +85,9 @@ export const meetingStatus  = pgEnum("meeting_status", [
 ])
 
 export const meetings = pgTable("meetings", {
-  id: text("id").primaryKey().$defaultFn(() => nanoid()),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
   name: text("name").notNull(),
   userId: text("user_id")
     .notNull()
@@ -97,4 +103,13 @@ export const meetings = pgTable("meetings", {
   summary: text("summary"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const twoFactor = pgTable("two_factor", {
+  id: text("id").primaryKey(),
+  secret: text("secret").notNull(),
+  backupCodes: text("backup_codes").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
 });

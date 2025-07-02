@@ -1,9 +1,13 @@
 import { createAvatar } from "@dicebear/core";
-import { botttsNeutral, initials } from "@dicebear/collection";
+import { botttsNeutral, initials, funEmoji  } from "@dicebear/collection";
 
 interface GeneratedAvatarProps {
     seed: string;
     variant: "botttsNeutral" | "initials";
+}
+
+interface UserAvatarProps {
+    seed: string;
 }
 
 export const generateAvatarUri = ({
@@ -23,6 +27,16 @@ export const generateAvatarUri = ({
             fontSize: 42,
         });
     }
+
+    return avatar.toDataUri();
+}
+
+export const UserAvatar = ({
+    seed,
+}: UserAvatarProps) => {
+    const avatar = createAvatar(funEmoji, {
+        seed
+    });
 
     return avatar.toDataUri();
 }

@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { OctagonAlertIcon } from "lucide-react"
+import { OctagonAlertIcon, EyeIcon, EyeOffIcon } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -14,6 +14,7 @@ import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { FaGithub, FaGoogle } from "react-icons/fa"
+import { useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -28,7 +29,10 @@ const formSchema = z.object({
 export const SignUpView = () => {
     const [error, setError] = useState<string | null>(null)
     const [pending, setPending] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const ref = searchParams.get("ref") ?? "";
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -51,6 +55,12 @@ export const SignUpView = () => {
             {
                 onSuccess: async () => {
                     setPending(false);
+                    if (ref) {
+                        await fetch("/api/referral", {
+                            method: "POST",
+                            body: JSON.stringify({ ref }),
+                        });
+                    }
                     await fetch("/api/send-welcome", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -74,8 +84,21 @@ export const SignUpView = () => {
             callbackURL: "/"
         },
             {
-                onSuccess: () => {
+                onSuccess: async () => {
                     setPending(false);
+                    // if (ref) {
+                    //     const decodedRef = decodeURIComponent(ref);
+                    //     const [referrer] = await db
+                    //         .select()
+                    //         .from(user)
+                    //         .where(eq(user.email, decodedRef));
+
+                    //     if (referrer) {
+                    //         await db.update(user)
+                    //             .set({ referralCount: sql`${user.referralCount} + 1` })
+                    //             .where(eq(user.id, referrer.id));
+                    //     }
+                    // }
                 },
 
                 onError: ({ error }) => {
@@ -134,7 +157,24 @@ export const SignUpView = () => {
                                             <FormItem>
                                                 <FormLabel>Password</FormLabel>
                                                 <FormControl>
-                                                    <Input type="password" placeholder="********" {...field} />
+                                                    <div className="relative">
+                                                        <Input
+                                                            type={showPassword ? "text" : "password"}
+                                                            placeholder="********"
+                                                            {...field}
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowPassword(!showPassword)}
+                                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                                        >
+                                                            {showPassword ? (
+                                                                <EyeOffIcon className="w-4 h-4" />
+                                                            ) : (
+                                                                <EyeIcon className="w-4 h-4" />
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -145,9 +185,26 @@ export const SignUpView = () => {
                                         name="confirmPassword"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Confirm Password</FormLabel>
+                                                <FormLabel>Password</FormLabel>
                                                 <FormControl>
-                                                    <Input type="password" placeholder="********" {...field} />
+                                                    <div className="relative">
+                                                        <Input
+                                                            type={showPassword ? "text" : "password"}
+                                                            placeholder="********"
+                                                            {...field}
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowPassword(!showPassword)}
+                                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                                        >
+                                                            {showPassword ? (
+                                                                <EyeOffIcon className="w-4 h-4" />
+                                                            ) : (
+                                                                <EyeIcon className="w-4 h-4" />
+                                                            )}
+                                                        </button>
+                                                    </div>
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

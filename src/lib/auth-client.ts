@@ -1,10 +1,15 @@
 import { createAuthClient } from "better-auth/react"
-import { twoFactorClient } from "better-auth/client/plugins"
+import { magicLinkClient, twoFactorClient } from "better-auth/client/plugins";
 import { polarClient } from "@polar-sh/better-auth"
 
 export const authClient = createAuthClient({
-    plugins: [
-        twoFactorClient(),
-        polarClient()
-    ]
-})
+  plugins: [
+    polarClient(),
+    magicLinkClient(),
+    twoFactorClient({
+      onTwoFactorRedirect() {
+        window.location.href = "/2fa";
+      },
+    }),
+  ],
+});

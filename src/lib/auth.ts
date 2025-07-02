@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { twoFactor } from "better-auth/plugins";
+import { magicLink } from "better-auth/plugins";
 import {
   polar,
   checkout,
@@ -11,6 +11,8 @@ import {
   webhooks,
 } from "@polar-sh/better-auth";
 import { polarClient } from "./polar";
+import { sendMagicLinkEmail } from "@/lib/email";
+import { twoFactor } from "better-auth/plugins"
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -39,8 +41,8 @@ export const auth = betterAuth({
     "http://localhost:3000",
     "https://fun-cattle-normally.ngrok-free.app", // Replace with your actual production URL
   ],
+  appName: "MeetAI",
   plugins: [
-    twoFactor(),
     polar({
       client: polarClient,
       createCustomerOnSignUp: true,
@@ -52,5 +54,15 @@ export const auth = betterAuth({
         portal(),
       ],
     }),
+    magicLink({
+      sendMagicLink: async ({ email, url }) => {
+        console.log("📩 Sending BetterAuth magic link:", url);
+        await sendMagicLinkEmail({
+          to: email,
+          magicLink: url,
+        });
+      },
+    }),
+    twoFactor() 
   ],
 });

@@ -8,6 +8,7 @@ import Link from "next/link";
 
 export const DashboardTrial = () => {
     const trpc = useTRPC();
+    
     const { data } = useQuery(
         trpc.premium.getFreeUsage.queryOptions()
     );
@@ -15,6 +16,8 @@ export const DashboardTrial = () => {
     if (!data) {
         return null;
     }
+
+    const { agentCount, meetingCount, maxFreeAgents, maxFreeMeetings, bonusLimit } = data;
 
     return (
         <div className="border border-border/10 rounded-lg bg-white/5 flex flex-col gap-y-2">
@@ -25,15 +28,15 @@ export const DashboardTrial = () => {
                 </div>
                 <div className="flex flex-col gap-y-2">
                     <p className="text-xs">
-                        {data.agentCount}/{MAX_FREE_AGENTS} Agents
+                        {agentCount}/{maxFreeAgents} Agents
                     </p>
-                    <Progress value={(data.agentCount/MAX_FREE_AGENTS) * 100} />
+                    <Progress value={(agentCount/maxFreeAgents) * 100} />
                 </div>
                 <div className="flex flex-col gap-y-2">
                     <p className="text-xs">
-                        {data.meetingCount}/{MAX_FREE_MEETINGS} Meetings
+                        {meetingCount}/{maxFreeMeetings} Meetings
                     </p>
-                    <Progress value={(data.meetingCount/MAX_FREE_MEETINGS) * 100} />
+                    <Progress value={(meetingCount/maxFreeMeetings) * 100} />
                 </div>
             </div>
             <Button
