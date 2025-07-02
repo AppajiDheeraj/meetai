@@ -53,7 +53,7 @@ export const SettingsSection = () => {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [showQRModal, setShowQRModal] = useState(false);
     const [totpURI, setTotpURI] = useState("");
-    const [_totpCode, setTotpCode] = useState("");
+    const [, setTotpCode] = useState("");
     const [isVerifying, setIsVerifying] = useState(false);
     const [showPasswordDialog, setShowPasswordDialog] = useState(false);
     const [passwordFor2FA, setPasswordFor2FA] = useState("");
@@ -79,19 +79,20 @@ export const SettingsSection = () => {
     useEffect(() => {
         refetch();
     }, [refetch]);
-
+    
     useEffect(() => {
         const fetchSessions = async () => {
             try {
                 const res = await authClient.listSessions();
                 if (res?.data) {
-                    const sessionList = res.data.map((s: any, index: number) => ({
-                        id: s.id,
-                        userAgent: s.userAgent,
-                        ipAddress: s.ipAddress || "Unknown IP",
+                    const sessionList = res.data.map((s, index): Session => ({
+                        id: s.token,
+                        userAgent: s.userAgent ?? "Unknown",
+                        ipAddress: s.ipAddress ?? "Unknown IP",
                         createdAt: new Date(s.createdAt).toLocaleString(),
-                        current: index === 0, // first is assumed current
+                        current: index === 0, // assume first session is current
                     }));
+
                     setSessions(sessionList);
                 }
             } catch (error) {

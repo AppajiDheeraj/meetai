@@ -280,8 +280,8 @@ export async function POST(request: NextRequest) {
       const alreadyResponded = existingMessages.messages.some(
         (msg) =>
           msg.user?.id === existingAgent.id &&
-          new Date(msg.created_at!).getTime() >
-            new Date(event.message?.created_at!).getTime()
+          new Date(msg.created_at ?? 0).getTime() >
+            new Date(event.message?.created_at ?? 0).getTime()
       );
 
       if (alreadyResponded) {
