@@ -12,7 +12,7 @@ export const onboardingContent = ({ username }: { username: string }) => `
   </ul>
 
   <div style="text-align:center; margin:32px 0;">
-    <a href="https://yourdomain.com/dashboard" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">🚀 Go to Dashboard</a>
+    <a href="https://meetai-pearl.vercel.app/meetings" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">🚀 Go to Dashboard</a>
   </div>
 
   <p>Your AI sidekick is ready — all you need to do is put it to work.</p>

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Meet.AI",
     images: [
       {
-        url: "/logo.svg", // Make sure this image exists in your public/ folder
+        url: "/logo.png", // Make sure this image exists in your public/ folder
         width: 1200,
         height: 630,
         alt: "Meet.AI - AI Agent Platform",

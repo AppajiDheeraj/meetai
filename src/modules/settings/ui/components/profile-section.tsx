@@ -114,7 +114,7 @@ export const ProfileSection = ({ user, stats }: Props) => {
           <ScrollArea className="flex items-center gap-4 overflow-x-auto w-full">
             <img src={"/LinkedIN.svg"} onClick={() => handleShareClick("linkedin")} className="size-12 mx-auto" aria-label="LinkedIn" />
             <img src={"/Twitter.svg"} onClick={() => handleShareClick("twitter")} className="size-12 mx-auto" aria-label="Twitter" />
-            <img src="/Whatsapp.svg" alt="WhatsApp" onClick={() => handleShareClick("whatsapp")} className="size-12 mx-auto" aria-label="WhatsApp" />
+            <img src="/WhatsApp.svg" alt="WhatsApp" onClick={() => handleShareClick("whatsapp")} className="size-12 mx-auto" aria-label="WhatsApp" />
             <img src={"/Facebook.svg"} onClick={() => handleShareClick("facebook")} className="size-12 mx-auto" aria-label="Facebook" />
             <img src={"/Gmail.svg"} alt="Gmail" aria-label="Gmail" className="size-12 border rounded-full mx-auto bg-gray-400" onClick={() => handleShareClick("gmail")} />
             <img src="/Instagram.svg" onClick={() => handleShareClick("instagram")} className="size-12 mx-auto" aria-label="Instagram" alt="Instagram" />

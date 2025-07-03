@@ -18,7 +18,7 @@ export const agentCreatedContent = ({
 </ul>
 
 <div style="text-align:center; margin:32px 0;">
-  <a href="https://yourdomain.com/dashboard/agents" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">🚀 Meet Your Agent</a>
+  <a href="https://meetai-pearl.vercel.app/agents" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">🚀 Meet Your Agent</a>
 </div>
 
 <p>We’re excited for you to see what <strong>${agentName}</strong> can do. Think of it as your tireless, super-intelligent assistant — minus the coffee addiction ☕.</p>

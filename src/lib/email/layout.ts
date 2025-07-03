@@ -3,7 +3,6 @@ export const emailLayout = ({
   subtitle,
   content,
   timestamp,
-  baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
 }: {
   title: string;
   subtitle?: string;
@@ -22,7 +21,6 @@ export const emailLayout = ({
   <div style="max-width:600px; margin:auto; background:white; border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.05);">
     <!-- Header -->
     <div style="background:#059669; padding:24px; text-align:center; color:white;">
-      <img src="${baseUrl}/logo.svg" alt="Meet.AI Logo" style="height:40px; margin-bottom:12px;" />
       <h1 style="margin:0; font-size:24px;">${title}</h1>
       ${subtitle ? `<p style="margin:4px 0 0; font-size:14px; opacity:0.9;">${subtitle}</p>` : ""}
     </div>

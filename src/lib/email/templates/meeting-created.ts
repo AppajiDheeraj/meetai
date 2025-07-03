@@ -22,7 +22,7 @@ export const meetingCreatedContent = ({
 </ul>
 
 <div style="text-align:center; margin:32px 0;">
-  <a href="https://yourdomain.com/dashboard/meetings/${meetingId}" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">📂 View Meeting</a>
+  <a href="https://meetai-pearl.vercel.app/meetings/${meetingId}" style="background:#10b981; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">📂 View Meeting</a>
 </div>
 
 <p>Get ready to reclaim your time — your agent’s got this 💼⚡</p>

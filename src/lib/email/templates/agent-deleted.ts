@@ -20,7 +20,7 @@ export const agentDeletedContent = ({
 <p>If this was intentional, you're all set. If it wasn’t, no worries — creating a new agent is just a few clicks away.</p>
 
 <div style="text-align:center; margin:32px 0;">
-  <a href="https://yourdomain.com/dashboard/agents" style="background:#059669; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">Create a New Agent</a>
+  <a href="https://meetai-pearl.vercel.app/agents" style="background:#059669; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">Create a New Agent</a>
 </div>
 
 <p style="margin-top:24px;">If you didn’t delete this agent and think something’s off, reach out to us — no judgment, just support.</p>

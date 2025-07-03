@@ -22,7 +22,7 @@ export const meetingDeletedContent = ({
 <p>If this deletion was intentional, you're all set. If not — don’t panic. You can always create a new meeting in seconds.</p>
 
 <div style="text-align:center; margin:32px 0;">
-  <a href="https://yourdomain.com/dashboard/meetings" style="background:#3b82f6; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">Schedule New Meeting</a>
+  <a href="https://meetai-pearl.vercel.app/meetings" style="background:#3b82f6; color:white; padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block;">Schedule New Meeting</a>
 </div>
 
 <p>Need help or hit delete by accident? Just let us know. Your AI agent is always ready for a comeback.</p>
