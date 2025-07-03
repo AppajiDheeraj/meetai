@@ -11,7 +11,7 @@ export const ARPopup = () => {
     <div className="text-center">
       {/* Button to trigger popup */}
       <Button onClick={() => setOpen(true)} className="bg-primary my-6 px-6 *:text-white hover:bg-primary/90 transition-colors">
-        Launch Dev's AR Business Card 🚀
+        Launch Dev&apos;s AR Business Card 🚀
       </Button>
 
       {/* AR Popup using your ResponsiveDialog */}
