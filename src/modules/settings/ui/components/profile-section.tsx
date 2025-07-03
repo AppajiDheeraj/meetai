@@ -36,7 +36,7 @@ export const ProfileSection = ({ user, stats }: Props) => {
   const [funEmojiAvatar, setFunEmojiAvatar] = useState("");
   const [open, setOpen] = useState(false);
 
-  const referralUrl = `https://meetai.app/?ref=${encodeURIComponent(user.email)}`;
+  const referralUrl = `https://meetai-pearl.vercel.app/sign-up/?ref=${encodeURIComponent(user.email)}`;
   const shareText = encodeURIComponent(`Join me on Meet.AI – Build & interact with AI agents!`);
 
   useEffect(() => {

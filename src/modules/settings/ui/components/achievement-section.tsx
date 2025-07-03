@@ -16,7 +16,7 @@ export const AchievementSection = ({
     totalDuration,
 }: Props) => {
     const hasAchievements =
-        agentCount > 0 || meetingCount === 3 || agentCount === 3 || totalDuration > 0;
+        agentCount > 0 || meetingCount === 3 || agentCount === 3 || totalDuration > 45*60;
 
     return (
         <div className="mt-4 bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md w-full border mx-auto">

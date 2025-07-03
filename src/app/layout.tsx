@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Meet.AI",
     description: "Create and interact with custom AI agents in seconds.",
-    url: "https://meetai.yoursite.com", // Replace with your real URL
+    url: "https://meetai-pearl.vercel.app", // Replace with your real URL
     siteName: "Meet.AI",
     images: [
       {
