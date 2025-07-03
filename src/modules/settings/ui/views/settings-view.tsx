@@ -7,6 +7,7 @@ import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { AchievementSection } from "../components/achievement-section";
 import { SettingsSection } from "../components/settings-section";
+import { ARPopup } from "../components/arcard";
 
 export const SettingsView = () => {
     const trpc = useTRPC();
@@ -42,6 +43,8 @@ export const SettingsView = () => {
                                 totalDuration={Number(stats?.totalDuration ?? 0)}
                             />
                         </div>
+                        {/* AR Connect Section */}
+                        <ARPopup />
                     </>
                 )}
                 </div>
