@@ -2,9 +2,10 @@
 
 Meet.AI is a powerful, full-stack AI platform designed to help users create, manage, and interact with custom AI agents in seconds. From secure authentication to AI-powered meeting assistants, Meet.AI blends advanced technologies into an intuitive, production-ready app.
 
-![Meet.AI Logo](./public/logo.svg)
+<p align="center">
+  <img src="public/logo.svg" width="200" alt="Logo" />
+</p>
 
----
 
 ## 🎯 Key Features
 
@@ -54,22 +55,7 @@ Meet.AI is a powerful, full-stack AI platform designed to help users create, man
 ---
 ## 📁 Project Structure (Simplified)
 
-src/
-│
-├── app/ → App Routes & API Endpoints (Next.js App Router)
-├── components/ → UI Components (Reusable & Styled)
-├── db/ → Database Config & Schema (Drizzle ORM)
-├── inngest/ → Background Functions (Inngest)
-├── lib/ → Core Libraries (Auth, APIs, Utils, Emails)
-├── modules/ → Feature Modules (Auth, Agents, Meetings, Settings, etc.)
-├── public/ → Static Assets (Logo, Prompts)
-└── trpc/ → TRPC Routers & Clients
-
-── trpc/ → TRPC Routers & Clients
-
-yaml
-Copy
-Edit
+src/<br>├── app/ → App Routes & API Endpoints (Next.js App Router)<br>├── components/ → UI Components (Reusable & Styled)<br>├── db/ → Database Config & Schema (Drizzle ORM)<br>├── inngest/ → Background Functions (Inngest)<br>├── lib/ → Core Libraries (Auth, APIs, Utils, Emails)<br>├── modules/ → Feature Modules (Auth, Agents, Meetings, Settings, etc.)<br>├── public/ → Static Assets (Logo, Prompts)<br>└── trpc/ → TRPC Routers & Clients
 
 ---
 
