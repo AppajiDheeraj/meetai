@@ -1,3 +1,5 @@
+
+
 # 🚀 Meet.AI – Your Personal AI Agent Platform
 
 Meet.AI is a powerful, full-stack AI platform designed to help users create, manage, and interact with custom AI agents in seconds. From secure authentication to AI-powered meeting assistants, Meet.AI blends advanced technologies into an intuitive, production-ready app.
@@ -63,7 +65,7 @@ src/<br>├── app/ → App Routes & API Endpoints (Next.js App Router)<br>�
 
 ### 1️⃣ Clone the Repository:
 ```bash
-git clone https://github.com/your-username/meetai.git
+git clone https://github.com/AppajiDheeraj/meetai.git
 cd meetai
 ```
 ### 2️⃣ Install Dependencies:
